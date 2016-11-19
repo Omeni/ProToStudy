@@ -58,9 +58,6 @@
                                     </div>
                                 </li>
                             </ul>
-                           <!--  <div class="logo-bg">
-                                    <a class="navbar-brand" href="/"><img class="img-responsive" src="/img/logo.png" /></a>
-                            </div> -->
                             <!-- рекурсивно выводим менюшку --><?php $this->_macros['menu_load'] = function($__p = null) { if (isset($__p[0])) { $lvl = $__p[0]; } else { if (isset($__p["lvl"])) { $lvl = $__p["lvl"]; } else {  throw new \Phalcon\Mvc\View\Exception("Macro 'menu_load' was called without parameter: lvl");  } }  ?>
                                 <?php foreach ($lvl as $key => $value) { ?>
                                     <li><a data-id="<?= $value['id'] ?>" data-page="<?= $value['page'] ?>"><?= $key ?></a>
@@ -73,8 +70,14 @@
                                 <?php } ?><?php }; $this->_macros['menu_load'] = \Closure::bind($this->_macros['menu_load'], $this); ?>
                             <!-- рекурсивно выводим менюшку конец -->
 
+                            <!-- <div class="logo-block">
+                                    <a class="navbar-brand" href="/"><img class="img-responsive" src="/img/logo.png" /></a>
+                            </div> -->
                             <div class="list-wrap">
 
+                                <div class="logo-block">
+                                        <a class="brand" href="/"><img class="img-responsive" src="/img/logo.png" /></a>
+                                </div>
                                 <ul class="nav menu1 nav-pills nav-stacked">
                                     <?= $this->callMacro('menu_load', [$menu]) ?>
                                 </ul>

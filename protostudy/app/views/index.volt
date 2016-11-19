@@ -58,9 +58,6 @@
                                     </div>
                                 </li>
                             </ul>
-                           <!--  <div class="logo-bg">
-                                    <a class="navbar-brand" href="/"><img class="img-responsive" src="/img/logo.png" /></a>
-                            </div> -->
                             <!-- рекурсивно выводим менюшку -->
                             {%- macro menu_load(lvl) %}
                                 {% for key, value in lvl %}
@@ -75,8 +72,14 @@
                             {%- endmacro %}
                             <!-- рекурсивно выводим менюшку конец -->
 
+                            <!-- <div class="logo-block">
+                                    <a class="navbar-brand" href="/"><img class="img-responsive" src="/img/logo.png" /></a>
+                            </div> -->
                             <div class="list-wrap">
 
+                                <div class="logo-block">
+                                        <a class="brand" href="/"><img class="img-responsive" src="/img/logo.png" /></a>
+                                </div>
                                 <ul class="nav menu1 nav-pills nav-stacked">
                                     {{ menu_load(menu) }}
                                 </ul>

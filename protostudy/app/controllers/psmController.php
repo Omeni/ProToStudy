@@ -26,13 +26,15 @@ class PsmController extends ControllerBase
         $link->execute();
         $article_theme = $link->fetchAll ();
         if (!empty($article_theme)) {
-            return $article_theme[0]['id'];
+            $quest = self::question($article_theme[0]['id']);
+            $quest = !empty($quest) ? $quest : self::article_question($article_theme[0]['id'], $theme);
+            return $quest;
         } else {
             return 'finish';
         }
     }
 
-    static function question($article, $theme, $try = 0, $quest = 0)
+    static function question($article, $quest = 0)
     {
         $link = ControllerBase::link();
         $sql = "SELECT * FROM question WHERE id > {$quest} AND article_id = {$article} LIMIT 1";
@@ -56,6 +58,45 @@ class PsmController extends ControllerBase
         // }
 
         
+    }
+
+    public function questionnextAction ($theme, $article, $question, $answer, $try)
+    {
+        $link = ControllerBase::link();
+        $sql = "SELECT * FROM answer WHERE id = {$answer} LIMIT 1";
+        $link = $link->prepare($sql);
+        $link->execute();
+        $quest = $link->fetchAll ();
+        if($quest[0]['status'] != 1)
+        {
+            print 'error';            
+            $this->view->setRenderLevel(View::LEVEL_NO_RENDER);
+        } elseif ($try > 0) {
+            $quest = self::question($article, $question);
+            $quest = !empty($quest) ? $quest : self::article_question ($article, $theme);
+            if (is_array($quest)) {
+                $ansvers = self::question_ansver($quest['id']);
+                $this->view->try = $try;    // количество ошибок
+                $this->view->ansvers = $ansvers;    // варианты ответов
+                $this->view->quest = $quest;        // вопрос
+                $this->view->setRenderLevel(View::LEVEL_ACTION_VIEW);
+            } else {
+                print $quest;
+                $this->view->setRenderLevel(View::LEVEL_NO_RENDER);
+            }
+        } else {
+            $quest = self::article_question ($article, $theme);
+            if (is_array($quest)) {
+                $ansvers = self::question_ansver($quest['id']);
+                $this->view->try = 0;    // количество ошибок
+                $this->view->ansvers = $ansvers;    // варианты ответов
+                $this->view->quest = $quest;        // вопрос
+                $this->view->setRenderLevel(View::LEVEL_ACTION_VIEW);
+            } else {
+                print $quest;
+                $this->view->setRenderLevel(View::LEVEL_NO_RENDER);
+            }
+        }
     }
 
     public function indexAction()

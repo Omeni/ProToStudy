@@ -85,6 +85,20 @@ $(document).ready(function(){
     });
     //дата время
 
+    $(document).on('click', '.answer-select', function(){
+        var question = $(this).attr('data-quest');
+        var answer = $('.question .active input[type="radio"]').attr('value') ? $('.question .active input[type="radio"]').attr('value') : 0;
+        var article = $(this).closest('form').attr('data-article');
+        var dtry = $(this).closest('form').attr('data-try');
+        var theme = $('body').attr('theme-id');
+        if(answer != 0)
+        {
+            question_next(theme, article, question, answer,  parseInt(dtry));
+        } else {
+            alertify.error('Ответ не выбран!!!');
+        }
+    });
+
     $(document).on('click', '.question input[type="radio"]', function(){
         if(!$(this).hasClass('active')) {
             $('.question input[type="radio"]').closest('label').removeClass('active');
@@ -164,6 +178,40 @@ function show_modal (cont, type, id){
     });
 }
 
+
+    function question_next(theme, article, question, answer, dtry) {
+        $.ajax({
+            type: "GET",
+            url: '/psm/questionnext/' + theme + '/' + article + '/' + question + '/' + answer + '/' + dtry + '/',
+            data:{},
+            cache: "false",
+            success: function(data){
+                
+                if(data && data == 'finish'){
+                    alertify.success('Тема изучена!');
+                } else if (data && data == 'error') {
+                    alertify.error('Ответ НЕверный!');
+                    dtry = dtry + 1;
+                    $('form.question').attr('data-try', dtry);
+                    anchor_article(article);
+                } else if (data) {
+                    alertify.success('Ответ верный!');
+                    dtry = dtry - 1 >= 0 ? dtry - 1 : 0;
+                    $('.block-question').html(data);
+                    $('form.question').attr('data-try', dtry);
+                }
+                
+            }
+        });
+    }
+
+
+    function anchor_article (article) {
+        var article = 'article-' + article;
+        if ($(article).length != 0) { 
+            $('html, body').animate({ scrollTop: $(article).offset().top }, 500); 
+        }
+    }
 
     //Загрузка страниц
     function load_page(page, parent_page='psm', id, name){
