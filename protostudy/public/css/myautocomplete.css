@@ -1,0 +1,25 @@
+.myautocomplete{
+	display: none;
+	position: absolute;
+	list-style: none;
+	margin: 0;
+	padding: 0px;
+    background-color: #fff;
+    z-index: 100;
+}
+.myautocomplete li {
+    text-align: center;
+    width: 100%;
+    padding: 5px;
+    cursor: pointer;
+    border-left: 1px solid #000;
+    border-right: 1px solid #000;
+    border-bottom: 1px solid #000;
+}
+.myautocomplete li:hover {
+    background: #ccc;
+    color: #000000;
+}
+.myautocomplete li:nth-child(1) {
+    border-top: 1px solid #000;
+}
