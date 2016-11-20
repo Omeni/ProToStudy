@@ -189,12 +189,14 @@ function show_modal (cont, type, id){
                 
                 if(data && data == 'finish'){
                     alertify.success('Тема изучена!');
+                    //window.location.replace("/index/index/");
                 } else if (data && data == 'error') {
                     alertify.error('Ответ НЕверный!');
                     dtry = dtry + 1;
                     $('form.question').attr('data-try', dtry);
                     anchor_article(article);
                 } else if (data) {
+                    $('.article-block').css('background', 'rgba(201, 213, 142, 0)');
                     alertify.success('Ответ верный!');
                     dtry = dtry - 1 >= 0 ? dtry - 1 : 0;
                     $('.block-question').html(data);
@@ -207,12 +209,14 @@ function show_modal (cont, type, id){
 
 
     function anchor_article (article) {
-        var article = 'article-' + article;
+        var article = '#article-' + article;
+        $('.article-block').css('background', 'rgba(201, 213, 142, 0)');
+        $(article).css('background', 'rgba(201, 213, 142, 0.71)');
+        console.log(article);
         if ($(article).length != 0) { 
             $('html, body').animate({ scrollTop: $(article).offset().top }, 500); 
         }
     }
-
     //Загрузка страниц
     function load_page(page, parent_page='psm', id, name){
         $.ajax({

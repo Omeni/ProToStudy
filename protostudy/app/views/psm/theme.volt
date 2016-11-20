@@ -1,7 +1,7 @@
 <h1 class="theme-title">{{theme_name}}</h1>
 {% if theme is defined %}
 	{% for value in theme %}
-		<div class="article-block" id="#article-{{ value['id'] }}">
+		<div class="article-block" id="article-{{ value['id'] }}">
 			<h2 class="article-title">{{ value['name'] }}</h2>
 			<div class="article-body">
 				<p>
