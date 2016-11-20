@@ -8,6 +8,7 @@ use Phalcon\Http\Request;
 class PsmController extends ControllerBase
 {
 
+    //метод возвращает список ответов по переданному вопросу
     static function question_ansver($question)
     {
         $link = ControllerBase::link();
@@ -18,6 +19,7 @@ class PsmController extends ControllerBase
         return $ansver_list;
     }
 
+    //метод возвращает вопрос по выбранной теме в следующих параграфах либо финиш если вопросы по теме закончились
     static function article_question($article, $theme)
     {
         $link = ControllerBase::link();
@@ -34,6 +36,7 @@ class PsmController extends ControllerBase
         }
     }
 
+    //метод возвращает вопрос по переданному параграфу
     static function question($article, $quest = 0)
     {
         $link = ControllerBase::link();
@@ -46,20 +49,11 @@ class PsmController extends ControllerBase
         } else {
             return 0;
         }
-        // if(empty($quest)) {
-        //     $article = self::article_question($article, $theme);
-        //     if($article != 'finish') {
-        //         return self::question($article, $theme, $try, $quest);
-        //     } else {
-        //         return $article;
-        //     }
-        // } elseif (!empty($quest) && $try != 0) {
-        //     question()
-        // }
 
         
     }
 
+    //происходит при нажитии кнопки ответ меняет вопрос либо увведомляет что ответ не верный или тема пройдена
     public function questionnextAction ($theme, $article, $question, $answer, $try)
     {
         $link = ControllerBase::link();
@@ -103,6 +97,7 @@ class PsmController extends ControllerBase
     {
     }
 
+    //метод возвращает пораграфы по выбранной теме
     public function themeAction($theme, $name)
     {
 

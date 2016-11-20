@@ -38,9 +38,6 @@ $(document).ready(function(){
         }
     });
 
-    //маска мобильного телефона
-    $("#mobile").mask("8 (999) 999-9999");
-
 
     //animate tabs
     $(document).on('click', '.nav-tabs li', function(){
@@ -61,29 +58,7 @@ $(document).ready(function(){
     });
    
 
-    // отображаем поле выбора даты и время при снятии галочки чекбокса - "Заказ на текущее врем" и наоборот 
-    $(document).on('click', '#time-check', function(){
-        if($(this).hasClass('active')){
-            $('#selecttime').fadeIn('slow');
-            $(this).removeClass('active');
-        }else{
-            $('#selecttime').fadeOut('slow');
-            $(this).addClass('active');
-        }
-    }
-    );
 
-
-    //дата время настройки для бутстраповского календарика
-    $(document).on('mouseenter', '#datetimepicker1', function(){
-        $('#datetimepicker1').datetimepicker({
-            language: 'ru',
-            format: 'HH:MM DD.MM.YYYY',
-            minDate: new Date()
-
-        });
-    });
-    //дата время
 
     $(document).on('click', '.answer-select', function(){
         var question = $(this).attr('data-quest');
@@ -128,55 +103,9 @@ $(document).ready(function(){
         load_page(page, parent_page, id, name);
     });
     
-    
-
-     /* get modal */
-     //отправление параметров в форму
-    $('body').on('click','.get-modal',function(e){
-        e.preventDefault();
-        //определеяем страницу
-        var page = $('body').attr('data-page');
-        //определяем контроллер
-        var controller = $('a[data-page="' + page + '"]').closest('ul').attr('data-parent');
-        //определеяем изменение это или добавление
-        var type = $(this).attr('data-type') == 'update' ? 1 : 0;
-        var cont = page;
-        
-        //при изменении берем ид изменяемого элемента, при добавлении предка его предка, для переопределения предка элемента,
-        // например у населенного пункта нужно изменить регион, но регион можно выбрать только из текущей страны
-        var id = $(this).attr('data-id');
-        show_modal(cont, type, id);
-
-    });
-    /* get modal */
 
 });
-//вызов формы изменить и добавить
-function show_modal (cont, type, id){
-    var page = $('body').attr('data-page');
-    var controller = $('a[data-page="' + page + '"]').closest('ul').attr('data-parent');
-    $.ajax({
-        type: "GET",
-        url: '/' + controller + '/form/',
-        data:{
-            'cont':cont,
-            'type':type,
-            'id':id
-        },
-        cache: "false",
-        success: function(data){
-            
-            $("#mymodal").addClass(cont);
-            $('#mymodal').modal('show');
-            $("#mymodal .modal-content .modal-body").html(data);
-            
-            $('#mymodal').on('hidden.bs.modal', function (e) {
-                $("#mymodal .modal-content .modal-body").empty();
-            });
-            
-        }
-    });
-}
+
 
 
     function question_next(theme, article, question, answer, dtry) {
@@ -189,6 +118,7 @@ function show_modal (cont, type, id){
                 
                 if(data && data == 'finish'){
                     alertify.success('Тема изучена!');
+                    $('.article-block').css('background', 'rgba(201, 213, 142, 0)');
                     //window.location.replace("/index/index/");
                 } else if (data && data == 'error') {
                     alertify.error('Ответ НЕверный!');
