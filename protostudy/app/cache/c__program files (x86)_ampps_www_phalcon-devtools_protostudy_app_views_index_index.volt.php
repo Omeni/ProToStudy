@@ -1,7 +1,8 @@
-<div class="page-header">
-    <h1>Congratulations!</h1>
-</div>
+<center >
+	<div class="page-header">
+	    <h1>Вас приветствует WEB-приложение для обучения студентов ProToStudy!</h1>
+	</div>
 
-<p>You're now flying with Phalcon. Great things are about to happen!</p>
-
-<p>This page is located at <code>views/index/index.volt</code></p>
+	<h3>Для начала обучения выберете тему из меню в левой стороне экрана!</h3>
+	<img class="img-responsive" src="/img/start-key.jpg">	
+</center>

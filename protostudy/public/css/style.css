@@ -372,3 +372,11 @@ label:hover, label.active {
     max-width: 90%;
     margin: 0 auto;
 }
+
+.logo-header {
+  max-width: 60px;
+}
+
+.page-header h1 {
+    margin-top: 0;
+}

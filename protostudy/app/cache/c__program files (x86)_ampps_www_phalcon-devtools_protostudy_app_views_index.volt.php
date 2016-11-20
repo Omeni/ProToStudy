@@ -42,7 +42,7 @@
                         <div class="navbar-inner">
                             <div class="navbar-header">
                                 <div class="logo">
-                                    <a class="navbar-brand" href="/"><img class="img-responsive" src="/img/logo.png" /></a>
+                                    <a class="navbar-brand" href="/"><img class="img-responsive logo-header" src="/img/logo.png" /></a>
                                 </div>
                             </div>
                         </div>
